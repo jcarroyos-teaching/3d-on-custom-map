@@ -19,10 +19,9 @@
       //maptilersdk.config.apiKey = 'YOUR_MAPTILER_API_KEY_HERE';
       const map = new maptilersdk.Map({
         container: 'map', // container's id or the HTML element to render the map
-        style:  'https://api.maptiler.com/maps/0195f903-dcf3-74a8-9a7a-2b0dbfa71e71/style.json?key=wPXPCIA1zYDlWSUmit7p',
-        center: [-15.45, -21.27], // starting position [lng, lat]
-        zoom: 0.75, // starting zoom
-        projection: 'globe' //enable globe projection
+        style:  'https://api.maptiler.com/maps/0195fd0e-3566-7d43-9397-c563c7794804/style.json?key=wPXPCIA1zYDlWSUmit7p',
+        center: [ -74.06517652975623, 4.644609321817583], zoom: 14.179225719702528 , pitch: 59.5 , bearing: 177.04950801310227,
+        projection: 'globe'
       });
 
       (async () => {
@@ -37,18 +36,35 @@
         // Adding a point light
         layer3D.addPointLight("point-light", {intensity: 30});
 
-
-
-        const originalDuckID = "duck";
+        const banana_dancing_fortnite = "banana_dancing_fortnite";
         await layer3D.addMeshFromURL(
-          originalDuckID,
-          "minion.glb",
+          banana_dancing_fortnite,
+          "banana_dancing_fortnite.glb",
           {
-            scale: 10000,
+            scale: 1000,
             heading: 155,
-            lngLat: [-74.06630086268002, 4.651526643410609]
+            lngLat: [-74.06, 4.65]
           }
         );
+
+        // Monitor zoom, pitch, bearing, and center on key press
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'm') { // Reemplaza 'm' si quieres otra tecla
+            const zoom = map.getZoom();
+            const pitch = map.getPitch();
+            const bearing = map.getBearing();
+            const center = map.getCenter();
+
+            // Formatear los datos según lo requerido
+            const formattedText = `center: [ ${center.lng}, ${center.lat}], zoom: ${zoom} , pitch: ${pitch} , bearing: ${bearing},`;
+
+            // Copiar al portapapeles
+            navigator.clipboard.writeText(formattedText)
+              .then(() => console.log("Datos copiados al portapapeles:", formattedText))
+              .catch(err => console.error("Error al copiar:", err));
+          }
+        });
+
 
 
       })();
