@@ -20,7 +20,7 @@
       const map = new maptilersdk.Map({
         container: 'map', // container's id or the HTML element to render the map
         style:  'https://api.maptiler.com/maps/0195fd0e-3566-7d43-9397-c563c7794804/style.json?key=wPXPCIA1zYDlWSUmit7p',
-        center: [ -74.06517652975623, 4.644609321817583], zoom: 14.179225719702528 , pitch: 59.5 , bearing: 177.04950801310227,
+        center: [ -74.06954666724477, 4.652426963087194], zoom: 16.213518442804997 , pitch: 56.32099666335311 , bearing: -159.52082565606963,
         projection: 'globe'
       });
 
@@ -36,14 +36,15 @@
         // Adding a point light
         layer3D.addPointLight("point-light", {intensity: 30});
 
-        const banana_dancing_fortnite = "banana_dancing_fortnite";
+
+        const originalDuckID = "duck";
         await layer3D.addMeshFromURL(
-          banana_dancing_fortnite,
-          "banana_dancing_fortnite.glb",
+          originalDuckID,
+          "banana_duck_meme.glb",
           {
-            scale: 1000,
+            scale: 100,
             heading: 155,
-            lngLat: [-74.06, 4.65]
+            lngLat: [-74.06630086268002, 4.651526643410609]
           }
         );
 
