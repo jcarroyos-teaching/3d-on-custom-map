@@ -11,10 +11,86 @@
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; background: #000; }
+
+    .modal {
+      display: none; /* Ocultar por defecto */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 10px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .modal-content p {
+      color: #555;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+    }
+
+    .open-modal-btn {
+      position: absolute;
+      bottom: 50px;
+      right: 40px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .open-modal-btn:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
   <div id="map"></div>
+  <button class="open-modal-btn" id="openModalBtn">Instrucciones</button>
+
+  <div id="instructionsModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModalBtn">&times;</span>
+      <h2>Instrucciones</h2>
+      <p>Presiona la tecla <strong>m</strong> para copiar los datos actuales del mapa al portapapeles.</p>
+      <p>Usa el mouse para navegar por el mapa en 3D.</p>
+      <p>¡Explora y diviértete!</p>
+    </div>
+  </div>
+
   <script>
       //maptilersdk.config.apiKey = 'YOUR_MAPTILER_API_KEY_HERE';
       const map = new maptilersdk.Map({
@@ -66,7 +142,24 @@
           }
         });
 
+        // Lógica para manejar la ventana modal
+        const modal = document.getElementById('instructionsModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
 
+        openModalBtn.addEventListener('click', () => {
+          modal.style.display = 'block';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+          if (event.target === modal) {
+            modal.style.display = 'none';
+          }
+        });
 
       })();
   </script>
