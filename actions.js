@@ -15,23 +15,53 @@ async function loadGeoJsonLayer(map, url) {
       data: geoJsonData
     });
 
+    // Capa de relleno para polígonos
     map.addLayer({
       id: 'geojson-layer',
       type: 'fill',
       source: 'geojson-layer',
+      filter: ['==', '$type', 'Polygon'],
       paint: {
         'fill-color': '#FF00F0',    
         'fill-opacity': 0.5,
       }
     });
 
+    // Capa de contorno para polígonos
     map.addLayer({
       id: 'geojson-layer-outline',
       type: 'line',
       source: 'geojson-layer',
+      filter: ['==', '$type', 'Polygon'],
       paint: {
         'line-color': '#000000',
         'line-width': 1
+      }
+    });
+    
+    // Capa de relleno para puntos (círculos)
+    map.addLayer({
+      id: 'geojson-point-fill',
+      type: 'circle',
+      source: 'geojson-layer',
+      filter: ['==', '$type', 'Point'],
+      paint: {
+        'circle-color': '#FF00F0',
+        'circle-opacity': 0.5,
+        'circle-radius': 6
+      }
+    });
+    
+    // Capa de contorno para puntos (círculos)
+    map.addLayer({
+      id: 'geojson-point-outline',
+      type: 'circle',
+      source: 'geojson-layer',
+      filter: ['==', '$type', 'Point'],
+      paint: {
+        'circle-stroke-color': '#000000',
+        'circle-stroke-width': 1,
+        'circle-radius': 6
       }
     });
 
