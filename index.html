@@ -8,6 +8,7 @@
   <link href="https://cdn.maptiler.com/maptiler-sdk-js/v3.0.1/maptiler-sdk.css" rel="stylesheet" />
    <!-- Importing MapTiler 3D js -->
 <script src="https://cdn.maptiler.com/maptiler-3d/v2.0.2/maptiler-3d.umd.min.js"></script>
+<script src="actions.js"></script>
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; background: #000; }
@@ -95,8 +96,8 @@
       //maptilersdk.config.apiKey = 'YOUR_MAPTILER_API_KEY_HERE';
       const map = new maptilersdk.Map({
         container: 'map', // container's id or the HTML element to render the map
-        style:  'https://api.maptiler.com/maps/0195fd0e-3566-7d43-9397-c563c7794804/style.json?key=wPXPCIA1zYDlWSUmit7p',
-        center: [ -74.06954666724477, 4.652426963087194], zoom: 16.213518442804997 , pitch: 56.32099666335311 , bearing: -159.52082565606963,
+        style:  'https://api.maptiler.com/maps/01961ca7-0b2e-7cf6-81cf-bc07e82c9d16/style.json?key=wPXPCIA1zYDlWSUmit7p',
+        center: [ -74.06645776269005, 4.652071808315981], zoom: 18.41496024637479 , pitch: 44 , bearing: -172.4446855404351,
         projection: 'globe'
       });
 
@@ -105,6 +106,9 @@
 
         const layer3D = new maptiler3d.Layer3D("custom-3D-layer");
         map.addLayer(layer3D);
+
+        // Mover la capa 3D por encima de las demás capas
+        map.moveLayer("custom-3D-layer");
 
         // Increasing the intensity of the ambient light
         layer3D.setAmbientLight({intensity: 2});
@@ -118,11 +122,14 @@
           originalDuckID,
           "banana_duck_meme.glb",
           {
-            scale: 100,
+            scale: 20,
             heading: 155,
-            lngLat: [-74.06630086268002, 4.651526643410609]
+            lngLat: [ -74.06664325745193, 4.652175918305858],
           }
         );
+
+        // Llamar a la función para cargar la capa GeoJSON
+        await window.loadGeoJsonLayer(map, 'data.geojson');
 
         // Monitor zoom, pitch, bearing, and center on key press
         document.addEventListener('keydown', (event) => {
